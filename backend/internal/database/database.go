@@ -22,7 +22,7 @@ import (
 var DB *gorm.DB
 
 func Connect() {
-	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=Asia/Shanghai",
+	dsn := fmt.Sprintf("host=%s user=%s password=%s dbname=%s port=%s sslmode=%s TimeZone=Asia/Shanghai client_encoding=UTF8",
 		config.AppConfig.Database.Host,
 		config.AppConfig.Database.User,
 		config.AppConfig.Database.Password,
@@ -36,10 +36,6 @@ func Connect() {
 	}
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
-		// GORM's PostgreSQL migrator otherwise uses pgx's simple protocol for
-		// schema inspection, which requires client_encoding=UTF8. Prepared
-		// statements use the extended protocol and support the server's encoding.
-		PrepareStmt:                              true,
 		DisableForeignKeyConstraintWhenMigrating: true,
 		NowFunc: func() time.Time {
 			return time.Now().In(loc)
@@ -72,7 +68,7 @@ func RunMigrations() {
 		}
 	}
 
-	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s",
+	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s&client_encoding=UTF8",
 		config.AppConfig.Database.User,
 		config.AppConfig.Database.Password,
 		config.AppConfig.Database.Host,
