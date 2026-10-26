@@ -1133,33 +1133,14 @@ func main() {
 	// 4. Connect to Redis
 	cache.Connect()
 
-	// 4.5. Start STP Renderer Worker
-	startSTPWorker()
-
 	// 4.5. Initialize OSS
 	if err := storage.InitOSS(); err != nil {
 		log.Fatalf("OSS init failed: %v", err)
 	}
 
-	// 4.6. Start scene task running cleanup
-	startSceneTaskRunningCleanup()
-
-	// 4.7. Start AI image generation task cleanup
-	startImageGenerationTaskCleanup()
-
-	// 4.8. Start monthly image statistics report scheduler
-	service.StartMonthlyImageReportScheduler()
+	// Start the finance exchange-rate scheduler only; image and report workers
+	// from the source system are not part of this finance deployment.
 	handler.StartTaxExchangeRateScheduler()
-
-	// 5. Start background image cleanup task (runs every 6 hours)
-	go func() {
-		for {
-			if err := storage.CleanExpiredImages(); err != nil {
-				log.Printf("Image cleanup error: %v", err)
-			}
-			time.Sleep(6 * time.Hour)
-		}
-	}()
 
 	// 6. Setup Router and HTTP server with explicit timeouts.
 	// WriteTimeout must exceed the longest AI response time (20 min).
@@ -1195,8 +1176,6 @@ func main() {
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	<-quit
 	log.Println("Shutting down server...")
-	stopSTPWorker()
-
 	ctx, cancel := context.WithTimeout(context.Background(), 30*time.Second)
 	defer cancel()
 	if err := srv.Shutdown(ctx); err != nil {

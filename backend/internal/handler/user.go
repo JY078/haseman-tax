@@ -67,16 +67,11 @@ func CreateUser(c *gin.Context) {
 		Email              string              `json:"email"`
 		Password           string              `json:"password" binding:"required"`
 		RoleIDs            []uint              `json:"role_ids"`
-		OrderPlatforms     []string            `json:"order_platforms"`
 		FinancePermissions map[string][]string `json:"finance_permissions"`
 		LongLogin          *bool               `json:"long_login"`
 		Enabled            *bool               `json:"enabled"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	if err := validateUserOrderPlatforms(input.OrderPlatforms); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -116,12 +111,6 @@ func CreateUser(c *gin.Context) {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to create user: " + err.Error()})
 		return
 	}
-	if err := replaceUserOrderPlatforms(user.ID, input.OrderPlatforms); err != nil {
-		database.DB.Delete(&user)
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-
 	if len(input.RoleIDs) > 0 {
 		var roles []model.Role
 		database.DB.Where("id IN ?", input.RoleIDs).Find(&roles)
@@ -157,16 +146,11 @@ func UpdateUser(c *gin.Context) {
 		SubDepartment      string              `json:"sub_department"`
 		Password           string              `json:"password"`
 		RoleIDs            []uint              `json:"role_ids"`
-		OrderPlatforms     []string            `json:"order_platforms"`
 		FinancePermissions map[string][]string `json:"finance_permissions"`
 		LongLogin          *bool               `json:"long_login"`
 		Enabled            *bool               `json:"enabled"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
-		return
-	}
-	if err := validateUserOrderPlatforms(input.OrderPlatforms); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -200,10 +184,6 @@ func UpdateUser(c *gin.Context) {
 	}
 	if err := database.DB.Save(&user).Error; err != nil {
 		c.JSON(http.StatusInternalServerError, gin.H{"error": "Failed to update user: " + err.Error()})
-		return
-	}
-	if err := replaceUserOrderPlatforms(user.ID, input.OrderPlatforms); err != nil {
-		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	if longLoginChanged {

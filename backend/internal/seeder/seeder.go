@@ -80,14 +80,8 @@ func SeedRolesAndAdmin() {
 		log.Println("Admin user already exists, skipping creation")
 	}
 
-	// 3. Seed Menus
-	seedMenus(db)
-
-	// 4. Assign all menus to admin role
-	seedAdminRoleMenus(db)
-
-	// 5. Migrate Settings to Models
-	MigrateSettingsToModels(db)
+	// This finance-only copy uses a fixed frontend navigation and does not seed
+	// legacy menus or migrate image-generation model settings.
 }
 
 func seedMenus(db *gorm.DB) {

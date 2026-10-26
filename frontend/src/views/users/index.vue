@@ -58,16 +58,6 @@
               </a-space>
             </template>
           </a-table-column>
-          <a-table-column title="负责平台" :width="210">
-            <template #cell="{ record }">
-              <a-space v-if="record.order_platforms?.length" wrap>
-                <a-tag v-for="platform in record.order_platforms" :key="platform" color="arcoblue" size="small">
-                  {{ getOrderPlatformLabel(platform) }}
-                </a-tag>
-              </a-space>
-              <span v-else class="empty-platform">未配置</span>
-            </template>
-          </a-table-column>
           <a-table-column title="长期登录" :width="110">
             <template #cell="{ record }">
               <a-tag :color="record.long_login ? 'green' : 'gray'" size="small">
@@ -171,19 +161,6 @@
             <a-input-password v-model="form.password" placeholder="留空则不修改" />
           </a-form-item>
         </template>
-        <a-form-item label="负责平台" field="orderPlatforms">
-          <a-select
-            v-model="form.orderPlatforms"
-            multiple
-            allow-clear
-            placeholder="选择该用户负责的订单平台"
-          >
-            <a-option v-for="item in orderPlatformOptions" :key="item.value" :value="item.value">
-              {{ item.label }}
-            </a-option>
-          </a-select>
-          <div class="platform-help">决定该用户可查看、维护和申请取消的订单平台，可多选。</div>
-        </a-form-item>
         <a-form-item label="角色分配">
           <a-select
             v-model="form.roleIds"
@@ -245,11 +222,6 @@ const platformOptions = [
   { label: 'Wayfair', value: 'Wayfair' },
   { label: 'Designer', value: 'Designer' },
   { label: 'Data', value: 'Data' },
-];
-const orderPlatformOptions = [
-  { label: 'TEMU', value: 'TEMU' },
-  { label: 'TikTok', value: 'TIKTOK' },
-  { label: "Lowe's", value: 'LOWES' },
 ];
 const financePlatforms = [
   { label: 'Amazon', value: 'amazon' }, { label: 'TikTok', value: 'tiktok' },
@@ -331,7 +303,7 @@ const onPageChange = (p) => {
 
 const openCreateModal = () => {
   isEdit.value = false;
-  form.value = { id: null, username: '', name: '', platform: '', departmentId: null, department: '', subDepartment: '', password: '', roleIds: [], orderPlatforms: [], longLogin: false, financePermissions: emptyFinancePermissions() };
+  form.value = { id: null, username: '', name: '', platform: '', departmentId: null, department: '', subDepartment: '', password: '', roleIds: [], longLogin: false, financePermissions: emptyFinancePermissions() };
   modalVisible.value = true;
 };
 
@@ -347,7 +319,6 @@ const openEditModal = (record) => {
     subDepartment: record.sub_department || '',
     password: '',
     roleIds: (record.roles || []).map(r => r.id),
-    orderPlatforms: [...(record.order_platforms || [])],
     longLogin: !!record.long_login,
     enabled: record.enabled !== false,
     financePermissions: { ...emptyFinancePermissions(), ...(record.finance_permissions || {}) },
@@ -383,7 +354,6 @@ const handleSubmit = async () => {
         platform: form.value.platform,
         department: form.value.department,
         sub_department: form.value.subDepartment,
-        order_platforms: form.value.orderPlatforms,
         finance_permissions: form.value.financePermissions,
       };
       if (form.value.password) payload.password = form.value.password;
@@ -399,7 +369,6 @@ const handleSubmit = async () => {
         sub_department: form.value.subDepartment,
         password: form.value.password,
         role_ids: form.value.roleIds,
-        order_platforms: form.value.orderPlatforms,
         long_login: form.value.longLogin,
         enabled: form.value.enabled,
         finance_permissions: form.value.financePermissions,
@@ -426,10 +395,6 @@ const getPlatformLabel = (value) => {
   if (!value) return '-';
   const normalized = normalizePlatformValue(value);
   return platformOptions.find(item => normalizePlatformValue(item.value) === normalized)?.label || value;
-};
-
-const getOrderPlatformLabel = (value) => {
-  return orderPlatformOptions.find(item => item.value === value)?.label || value;
 };
 
 const normalizePlatformValue = (value) => {
@@ -471,7 +436,6 @@ const handleEnabledChange = async (record, enabled) => {
       sub_department: record.sub_department || '',
       platform: record.platform || '',
       role_ids: (record.roles || []).map(role => role.id),
-      order_platforms: record.order_platforms || [],
       finance_permissions: record.finance_permissions || {},
       long_login: !!record.long_login,
       enabled,

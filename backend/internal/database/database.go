@@ -36,6 +36,10 @@ func Connect() {
 	}
 	var err error
 	DB, err = gorm.Open(postgres.Open(dsn), &gorm.Config{
+		// GORM's PostgreSQL migrator otherwise uses pgx's simple protocol for
+		// schema inspection, which requires client_encoding=UTF8. Prepared
+		// statements use the extended protocol and support the server's encoding.
+		PrepareStmt:                              true,
 		DisableForeignKeyConstraintWhenMigrating: true,
 		NowFunc: func() time.Time {
 			return time.Now().In(loc)
@@ -55,6 +59,19 @@ func Connect() {
 }
 
 func RunMigrations() {
+	// Historical SQL migrations include indexes on tables owned by legacy modules
+	// that were originally created by later GORM migrations. Create only the
+	// minimal prerequisite tables here; finance startup does not initialize those modules.
+	for _, stmt := range []string{
+		`CREATE TABLE IF NOT EXISTS scene_style_tags (id BIGSERIAL PRIMARY KEY)`,
+		`CREATE TABLE IF NOT EXISTS scene_style_references (id BIGSERIAL PRIMARY KEY, scene_id BIGINT NOT NULL DEFAULT 0, tag_id BIGINT NOT NULL DEFAULT 0)`,
+		`CREATE TABLE IF NOT EXISTS product_skus (id BIGSERIAL PRIMARY KEY)`,
+	} {
+		if err := DB.Exec(stmt).Error; err != nil {
+			log.Fatalf("Failed to prepare legacy migration dependency: %v", err)
+		}
+	}
+
 	dsn := fmt.Sprintf("postgres://%s:%s@%s:%s/%s?sslmode=%s",
 		config.AppConfig.Database.User,
 		config.AppConfig.Database.Password,
@@ -100,48 +117,12 @@ func RunMigrations() {
 		log.Fatalf("Failed to ensure users.finance_permissions column: %v", err)
 	}
 
-	runUsageLogAutoMigrate()
-	runPromptAutoMigrate()
-	runProductPromptAutoMigrate()
-	runSceneAutoMigrate()
-	runImageTaskAutoMigrate()
-	runSceneStyleCategoryAutoMigrate()
-	runEcomSuiteAutoMigrate()
-	runListingKeywordAutoMigrate()
-	if err := DB.AutoMigrate(&model.BuyerReview{}); err != nil {
-		log.Fatalf("Failed to migrate buyer reviews: %v", err)
-	}
-	if err := migrateBuyerReviewFingerprints(); err != nil {
-		log.Fatalf("Failed to migrate buyer review fingerprints: %v", err)
-	}
-	runReferenceGalleryAutoMigrate()
-	runProductColorFamilyAutoMigrate()
-	runDepartmentAutoMigrate()
-	runUserOrderPlatformAutoMigrate()
-	runWhiteBgAutoMigrate()
-	runMultiAngleAutoMigrate()
-	runDepthAutoMigrate()
-	runLightShadowAutoMigrate()
-	runImageBatchAutoMigrate()
-	runWorkflowProjectAutoMigrate()
-	runProductCatalogAutoMigrate()
-	runOrderSKUMappingAutoMigrate()
-	runAssetAutoMigrate()
-	runWorkRequestAutoMigrate()
-	if err := DB.AutoMigrate(&model.ImageViolationExample{}); err != nil {
-		log.Fatalf("Failed to auto migrate image violation examples: %v", err)
-	}
+	// This copy runs the finance web and user administration only. Image,
+	// prompt, product, order, usage-log, and collaboration schemas are not
+	// initialized at startup.
 	runTaxDataAutoMigrate()
 	if err := DB.AutoMigrate(&model.CustomsDeclaration{}); err != nil {
 		log.Fatalf("Failed to migrate customs declarations: %v", err)
-	}
-	if err := DB.AutoMigrate(&model.DailyCall{}); err != nil {
-		log.Fatalf("Failed to auto migrate DailyCall schema: %v", err)
-	}
-	for _, column := range []string{"name", "brief_of_issue", "quality_result", "reason"} {
-		if err := DB.Exec("ALTER TABLE daily_calls ALTER COLUMN " + column + " DROP NOT NULL").Error; err != nil {
-			log.Printf("Failed to make daily_calls.%s nullable: %v", column, err)
-		}
 	}
 }
 
