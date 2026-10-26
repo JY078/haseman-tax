@@ -100,7 +100,7 @@
           </a-table-column>
           <a-table-column title="操作" :width="160">
             <template #cell="{ record }">
-              <a-button type="text" size="small" @click="openEditModal(record)">
+              <a-button type="text" size="small" :disabled="isProtectedAdmin(record)" :title="isProtectedAdmin(record) ? '主管理员只能由本人编辑' : ''" @click="openEditModal(record)">
                 <template #icon><icon-edit /></template>
                 编辑
               </a-button>
@@ -228,6 +228,8 @@ import request from '@/utils/request';
 
 const userStore = useUserStore();
 const selfId = computed(() => userStore.userInfo?.id);
+const isPrimaryAdmin = user => String(user?.username || '').trim().toLowerCase() === 'admin' || String(user?.email || '').trim().toLowerCase() === 'admin@example.com';
+const isProtectedAdmin = user => isPrimaryAdmin(user) && user?.id !== selfId.value;
 
 const users = ref([]);
 const allRoles = ref([]);

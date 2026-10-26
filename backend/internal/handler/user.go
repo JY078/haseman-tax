@@ -142,6 +142,12 @@ func UpdateUser(c *gin.Context) {
 		c.JSON(http.StatusNotFound, gin.H{"error": "User not found"})
 		return
 	}
+	actorIDValue, _ := c.Get("userID")
+	actorID, _ := actorIDValue.(uint)
+	if isPrimaryAdmin(user) && actorID != user.ID {
+		c.JSON(http.StatusForbidden, gin.H{"error": "主管理员账号只能由本人编辑"})
+		return
+	}
 
 	var input struct {
 		Name               string              `json:"name"`
@@ -223,6 +229,13 @@ func UpdateUser(c *gin.Context) {
 	database.DB.Preload("Roles").First(&user, user.ID)
 	loadUserOrderPlatforms(&user)
 	c.JSON(http.StatusOK, user)
+}
+
+func isPrimaryAdmin(user model.User) bool {
+	if strings.EqualFold(strings.TrimSpace(user.Username), "admin") {
+		return true
+	}
+	return strings.EqualFold(strings.TrimSpace(user.Email), "admin@example.com")
 }
 
 var financePermissionPlatforms = map[string]struct{}{"amazon": {}, "tiktok": {}, "walmart": {}, "customs": {}, "exchange_rates": {}}
