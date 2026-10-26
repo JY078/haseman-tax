@@ -248,27 +248,8 @@ const getCurrentMenuTitle = () => {
 
 const fetchMenus = async () => {
   try {
-    const response = await request.get('/menus');
-    const blockedPathKeywords = ['product-image-task', 'multi-angle', 'product-prompts'];
-    const blockedTitleKeywords = ['产品图生成', '多角度生成', '产品库'];
-
-    const isBlockedMenu = (item) => {
-      const path = String(item?.path || '').toLowerCase();
-      const title = String(item?.title || '');
-      const byPath = blockedPathKeywords.some(k => path.includes(k));
-      const byTitle = blockedTitleKeywords.some(k => title.includes(k));
-      return byPath || byTitle;
-    };
-
-    const filterMenus = (items = []) => items
-      .filter(item => !isBlockedMenu(item))
-      .map(item => ({
-        ...item,
-        children: filterMenus(item.children || []),
-      }))
-      .filter(item => item.path || (item.children && item.children.length > 0));
-
-    menus.value = filterMenus(response.data || []);
+    // 税务副本只展示用户管理，原系统的其他后台菜单不加载。
+    menus.value = [{ id: 'users', title: '用户管理', path: '/users', icon: 'icon-user' }];
     // 加载完成后立即计算需要展开的父菜单
     openKeys.value = computeOpenKeys(route.path);
   } catch (error) {
@@ -276,16 +257,7 @@ const fetchMenus = async () => {
   }
 };
 
-const fetchSettings = async () => {
-  try {
-    const response = await request.get('/settings');
-    if (response.data?.site_name) {
-      siteName.value = response.data.site_name;
-    }
-  } catch (error) {
-    console.error('Failed to fetch settings', error);
-  }
-};
+// 原系统后台设置页属于非税务功能，税务副本不加载全局后台设置。
 
 const handleMenuItemClick = (key) => {
   // 路径为空时为一级分类菜单，不执行跳转
@@ -392,7 +364,6 @@ watch(
 
 onMounted(() => {
   fetchMenus();
-  fetchSettings();
   startHeartbeat();
 });
 

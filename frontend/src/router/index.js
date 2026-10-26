@@ -18,94 +18,23 @@ const router = createRouter({
       children: [
         {
           path: '',
-          redirect: 'dashboard',
-        },
-        {
-          path: 'dashboard',
-          name: 'dashboard',
-          component: () => import('../views/dashboard/index.vue'),
+          redirect: 'users',
         },
         {
           path: 'users',
           name: 'users',
           component: () => import('../views/users/index.vue'),
         },
-        {
-          path: 'departments',
-          name: 'departments',
-          component: () => import('../views/departments/index.vue'),
-        },
-        {
-          path: 'settings',
-          name: 'settings',
-          component: () => import('../views/settings/index.vue'),
-        },
-        {
-          path: 'models',
-          name: 'models',
-          component: () => import('../views/models/index.vue'),
-        },
-        {
-          path: 'usage',
-          name: 'usage',
-          component: () => import('../views/usage/index.vue'),
-        },
-        {
-          path: 'image-stats',
-          name: 'image-stats',
-          component: () => import('../views/image-stats/index.vue'),
-        },
-        {
-          path: 'roles',
-          name: 'roles',
-          component: () => import('../views/roles/index.vue'),
-        },
-        {
-          path: 'prompts',
-          name: 'prompts',
-          component: () => import('../views/prompts/index.vue'),
-        },
-        {
-          path: 'product-prompts',
-          name: 'product-prompts',
-          component: () => import('../views/product-prompts/index.vue'),
-        },
-        {
-          path: 'scene-styles',
-          name: 'scene-styles',
-          component: () => import('../views/scene-styles/index.vue'),
-        },
-        {
-          path: 'product-colors',
-          name: 'product-colors',
-          component: () => import('../views/product-colors/index.vue'),
-        },
-        {
-          path: 'reference-galleries',
-          name: 'reference-galleries',
-          component: () => import('../views/reference-galleries/index.vue'),
-        },
-        {
-          path: 'task-queue',
-          name: 'task-queue',
-          component: () => import('../views/task-queue/index.vue'),
-        },
-        {
-          path: 'announcements',
-          name: 'announcements',
-          component: () => import('../views/announcements/index.vue'),
-        },
-        {
-          path: 'menus',
-          name: 'menus',
-          component: () => import('../views/menus/index.vue'),
-        },
-        {
-          path: 'feedbacks',
-          name: 'feedbacks',
-          component: () => import('../views/feedbacks/index.vue'),
-        },
+        // 税务副本仅保留用户管理。原系统后台的其他页面已停用：
+        // departments / settings / models / usage / image-stats / roles /
+        // prompts / product-prompts / scene-styles / product-colors /
+        // reference-galleries / task-queue / announcements / menus / feedbacks。
       ],
+    },
+    // 旧后台页面在税务副本中停用，统一回到用户管理。
+    {
+      path: '/:pathMatch(.*)*',
+      redirect: '/users',
     },
   ],
 });
@@ -115,9 +44,9 @@ router.beforeEach(async (to, from, next) => {
   
   // If the route explicitly requires NO auth (like login), allow access
   if (to.meta.requiresAuth === false) {
-    // But if user is already logged in and tries to access login page, redirect to dashboard
+    // 已登录用户访问登录页时，直接进入用户管理。
     if (to.name === 'login' && userStore.token) {
-      next({ name: 'dashboard' });
+          next({ name: 'users' });
       return;
     }
     next();
