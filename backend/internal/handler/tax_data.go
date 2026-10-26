@@ -64,8 +64,69 @@ func RequireTaxDataAccess() gin.HandlerFunc {
 			c.AbortWithStatusJSON(403, gin.H{"error": "仅管理员或财务部门可访问"})
 			return
 		}
+		if !financePermissionAllowed(user, c) {
+			c.AbortWithStatusJSON(403, gin.H{"error": "当前账号没有该财务平台操作权限"})
+			return
+		}
 		c.Next()
 	}
+}
+
+func financePermissionAllowed(user model.User, c *gin.Context) bool {
+	for _, role := range user.Roles {
+		if role.Name == "admin" {
+			return true
+		}
+	}
+	// Existing finance accounts retain access until an administrator saves an explicit matrix.
+	if len(user.FinancePermissions) == 0 {
+		return true
+	}
+	path := strings.ToLower(c.Request.URL.Path)
+	platform := strings.ToLower(c.Query("platform"))
+	if platform == "" {
+		platform = strings.ToLower(c.PostForm("platform"))
+	}
+	switch {
+	case strings.Contains(path, "/amazon"):
+		platform = "amazon"
+	case strings.Contains(path, "/tiktok"):
+		platform = "tiktok"
+	case strings.Contains(path, "/customs-declarations"):
+		platform = "customs"
+	case strings.Contains(path, "/exchange-rates"):
+		platform = "exchange_rates"
+	case platform == "walmart":
+		platform = "walmart"
+	}
+	action := "view"
+	if strings.Contains(path, "/export") {
+		action = "export"
+	} else if c.Request.Method == http.MethodPost {
+		if strings.Contains(path, "/upload") || strings.Contains(path, "/imports") || strings.Contains(path, "/customs-declarations") {
+			action = "import"
+		} else {
+			action = "create"
+		}
+	} else if c.Request.Method == http.MethodPut || c.Request.Method == http.MethodDelete {
+		action = "create"
+	}
+	if platform == "" {
+		for _, permissions := range user.FinancePermissions {
+			for _, allowed := range permissions {
+				if allowed == action {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	for _, allowed := range user.FinancePermissions[platform] {
+		if allowed == action {
+			return true
+		}
+	}
+	return false
 }
 
 func RequireExchangeRateAccess() gin.HandlerFunc {
@@ -93,6 +154,10 @@ func RequireExchangeRateAccess() gin.HandlerFunc {
 		}
 		if !isAdmin && (isCustomerService(user.Department) || isCustomerService(user.SubDepartment)) {
 			c.AbortWithStatusJSON(403, gin.H{"error": "客服人员仅可访问每日来电登记"})
+			return
+		}
+		if !financePermissionAllowed(user, c) {
+			c.AbortWithStatusJSON(403, gin.H{"error": "当前账号没有汇率平台操作权限"})
 			return
 		}
 		c.Next()

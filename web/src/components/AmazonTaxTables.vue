@@ -5,7 +5,7 @@
           @click="switchTab(item.key)">{{ item.label }}</button></div>
       <div class="toolbar-actions"><button v-if="tab !== 'summary' && tab !== 'categories'"
           class="column-config-trigger" @click="columnConfigOpen = true">列配置</button><button @click="loadRows"
-          :disabled="loading">刷新</button><button v-if="tab !== 'categories'" class="export-btn" @click="exportReport"
+          :disabled="loading">刷新</button><button v-if="canExport && tab !== 'categories'" class="export-btn" @click="exportReport"
           :disabled="loading || !!downloadBusy">{{ downloadBusy === 'export' ? '生成中…' : '下载报表' }}</button></div>
     </div>
     <TaxColumnConfigPanel :open="columnConfigOpen" :headers="columns" :visible="visibleColumns" :pinned="pinnedColumns"
@@ -150,6 +150,7 @@ const props = defineProps({
   downloadBusy: { type: String, default: '' },
   downloadError: { type: String, default: '' },
   downloadFile: { type: Function, required: true },
+  canExport: { type: Boolean, default: true },
   storeId: { type: String, default: 'sunoutly' },
   siteId: { type: String, default: 'US' },
   siteCurrencyCode: { type: String, default: '' },

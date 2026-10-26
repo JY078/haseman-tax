@@ -199,6 +199,17 @@
             />
           </a-select>
         </a-form-item>
+        <a-form-item label="财务平台权限">
+          <div class="finance-permissions">
+            <div v-for="platform in financePlatforms" :key="platform.value" class="permission-row">
+              <strong>{{ platform.label }}</strong>
+              <a-checkbox-group v-model="form.financePermissions[platform.value]">
+                <a-checkbox v-for="action in financeActions" :key="action.value" :value="action.value">{{ action.label }}</a-checkbox>
+              </a-checkbox-group>
+            </div>
+          </div>
+          <div class="platform-help">分别控制财务平台的查看、新增、导入、导出操作；未勾选即禁止。</div>
+        </a-form-item>
         <a-form-item label="用户端登录长期有效">
           <a-switch v-model="form.longLogin" />
           <span style="margin-left: 8px; color: #86909c; font-size: 12px">开启后用户端登录有效期为 10 年</span>
@@ -238,6 +249,13 @@ const orderPlatformOptions = [
   { label: 'TikTok', value: 'TIKTOK' },
   { label: "Lowe's", value: 'LOWES' },
 ];
+const financePlatforms = [
+  { label: 'Amazon', value: 'amazon' }, { label: 'TikTok', value: 'tiktok' },
+  { label: 'Walmart', value: 'walmart' }, { label: '报关单', value: 'customs' },
+  { label: '汇率', value: 'exchange_rates' },
+];
+const financeActions = [{ label: '查看', value: 'view' }, { label: '新增', value: 'create' }, { label: '导入', value: 'import' }, { label: '导出', value: 'export' }];
+const emptyFinancePermissions = () => Object.fromEntries(financePlatforms.map(item => [item.value, []]));
 const loading = ref(false);
 const total = ref(0);
 const page = ref(1);
@@ -260,6 +278,7 @@ const form = ref({
   orderPlatforms: [],
   longLogin: false,
   enabled: true,
+  financePermissions: emptyFinancePermissions(),
 });
 
 let usersRequestID = 0;
@@ -310,7 +329,7 @@ const onPageChange = (p) => {
 
 const openCreateModal = () => {
   isEdit.value = false;
-  form.value = { id: null, username: '', name: '', platform: '', departmentId: null, department: '', subDepartment: '', password: '', roleIds: [], orderPlatforms: [], longLogin: false };
+  form.value = { id: null, username: '', name: '', platform: '', departmentId: null, department: '', subDepartment: '', password: '', roleIds: [], orderPlatforms: [], longLogin: false, financePermissions: emptyFinancePermissions() };
   modalVisible.value = true;
 };
 
@@ -329,6 +348,7 @@ const openEditModal = (record) => {
     orderPlatforms: [...(record.order_platforms || [])],
     longLogin: !!record.long_login,
     enabled: record.enabled !== false,
+    financePermissions: { ...emptyFinancePermissions(), ...(record.finance_permissions || {}) },
   };
   modalVisible.value = true;
 };
@@ -362,6 +382,7 @@ const handleSubmit = async () => {
         department: form.value.department,
         sub_department: form.value.subDepartment,
         order_platforms: form.value.orderPlatforms,
+        finance_permissions: form.value.financePermissions,
       };
       if (form.value.password) payload.password = form.value.password;
       await request.put(`/users/${form.value.id}`, payload);
@@ -379,6 +400,7 @@ const handleSubmit = async () => {
         order_platforms: form.value.orderPlatforms,
         long_login: form.value.longLogin,
         enabled: form.value.enabled,
+        finance_permissions: form.value.financePermissions,
       });
       Message.success('用户创建成功');
     }
@@ -448,6 +470,7 @@ const handleEnabledChange = async (record, enabled) => {
       platform: record.platform || '',
       role_ids: (record.roles || []).map(role => role.id),
       order_platforms: record.order_platforms || [],
+      finance_permissions: record.finance_permissions || {},
       long_login: !!record.long_login,
       enabled,
     });
@@ -501,5 +524,20 @@ onUnmounted(() => {
 .platform-help {
   margin-top: 6px;
   line-height: 1.5;
+}
+
+.finance-permissions {
+  display: grid;
+  gap: 8px;
+  padding: 10px 12px;
+  border: 1px solid var(--color-border-2);
+  border-radius: 6px;
+}
+
+.permission-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  align-items: center;
+  gap: 12px;
 }
 </style>

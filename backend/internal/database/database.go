@@ -96,6 +96,9 @@ func RunMigrations() {
 	if err := DB.Exec(`ALTER TABLE users ADD COLUMN IF NOT EXISTS enabled BOOLEAN NOT NULL DEFAULT TRUE`).Error; err != nil {
 		log.Fatalf("Failed to ensure users.enabled column: %v", err)
 	}
+	if err := DB.Exec(`ALTER TABLE users ADD COLUMN IF NOT EXISTS finance_permissions jsonb NOT NULL DEFAULT '{}'::jsonb`).Error; err != nil {
+		log.Fatalf("Failed to ensure users.finance_permissions column: %v", err)
+	}
 
 	runUsageLogAutoMigrate()
 	runPromptAutoMigrate()

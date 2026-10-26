@@ -15,7 +15,7 @@
               </ListboxButton>
               <div class="platform-menu" v-if="open">
                 <ListboxOptions class="platform-options" static>
-                  <ListboxOption v-for="item in platformOptions" :key="item.value" :value="item.value" as="template"
+                    <ListboxOption v-for="item in availablePlatformOptions" :key="item.value" :value="item.value" as="template"
                     v-slot="{ active, selected }">
                     <li class="platform-option" :class="{ highlighted: active, selected }"><span>{{ item.label
                         }}</span><svg class="platform-selected-icon" :class="{ visible: selected }" viewBox="0 0 16 16"
@@ -86,15 +86,15 @@
               </div>
             </Listbox>
             <TaxDateRangePicker v-model:from="dateFrom" v-model:to="dateTo" label="范围" @change="switchPeriod" />
-            <button class="catalog-add-button" type="button" @click="openCatalogDialog()">添加店铺/站点</button>
-            <button class="import-trigger" type="button" @click="openImportDialog">导入数据</button>
+            <button v-if="canFinance('create', platform)" class="catalog-add-button" type="button" @click="openCatalogDialog()">添加店铺/站点</button>
+            <button v-if="canFinance('import', platform)" class="import-trigger" type="button" @click="openImportDialog">导入数据</button>
           </div>
           <div class="history-actions"><button @click="openHistory('imports')">导入日志</button><button
               @click="openHistory('downloads')">下载记录</button></div>
         </div>
         <AmazonTaxTables v-if="platform === 'amazon'" :store-id="storeId" :site-id="countryId" :country-options="siteOptions"
           :site-currency-code="selectedSiteCurrency" :download-busy="downloadBusy" :download-error="downloadError"
-          :download-file="downloadFile" :date-from="dateFrom" :date-to="dateTo" />
+          :download-file="downloadFile" :date-from="dateFrom" :date-to="dateTo" :can-export="canFinance('export', 'amazon')" />
         <template v-else-if="platform === 'tiktok'">
           <div class="toolbar tiktok-toolbar">
             <div class="tabs" role="tablist" aria-label="TikTok 报税数据表">
@@ -117,7 +117,7 @@
             </div>
             <div class="filters"><button v-if="['settlements', 'orders'].includes(tiktokTab)"
                 class="column-config-trigger" @click="tiktokColumnConfigOpen = true">列配置</button><button
-                :disabled="tiktokLoading" @click="loadTikTok">刷新</button><button class="export-btn"
+                :disabled="tiktokLoading" @click="loadTikTok">刷新</button><button v-if="canFinance('export', 'tiktok')" class="export-btn"
                 :disabled="tiktokLoading || !!downloadBusy" @click="exportTikTokReport">{{ downloadBusy === 'export' ?
                 '生成中…' : '下载报表' }}</button></div>
           </div>
@@ -516,7 +516,7 @@
               <button v-if="tab === 'raw'" class="column-config-trigger" :class="{ active: columnConfigOpen }"
                 @click.stop="toggleColumnConfig">列配置</button>
               <button :disabled="loading" @click="loadData">刷新</button>
-              <button v-if="tab !== 'rules'" class="export-btn" :disabled="loading || !!downloadBusy"
+              <button v-if="tab !== 'rules' && canFinance('export', platform)" class="export-btn" :disabled="loading || !!downloadBusy"
                 @click="exportReport">{{ downloadBusy === 'export' ? '生成中…' : '下载报表' }}</button>
             </div>
           </div>
@@ -953,6 +953,12 @@ import { isExcludedTaxTotalColumn } from '@/utils/taxTotals'
 
 const tabs = [{ key: 'raw', label: '原始账单' }, { key: 'quarters', label: '季度汇总' }, { key: 'rules', label: '匹配规则' }]
 const platformOptions = [{ value: 'walmart', label: 'Walmart' }, { value: 'tiktok', label: 'TikTok' }, { value: 'amazon', label: 'Amazon' }]
+const financePermissions = (() => { try { return JSON.parse(localStorage.getItem('user') || '{}').finance_permissions || {} } catch { return {} } })()
+const canFinance = (action, platformKey) => {
+  const permissions = financePermissions[platformKey]
+  return !Object.keys(financePermissions).length || !!permissions?.includes(action)
+}
+const availablePlatformOptions = computed(() => platformOptions.filter(item => canFinance('view', item.value)))
 const platform = ref('walmart')
 const storeCatalog = reactive({ walmart: [{ value: 'TVOFEK', label: 'TVOFEK' }], tiktok: [{ value: 'Forious', label: 'Forious' }], amazon: [{ value: 'sunoutly', label: 'sunoutly' }, { value: 'DearOcean', label: 'DearOcean' }, { value: 'Qfn', label: 'Qfn' }] })
 const siteCatalog = reactive({ walmart: [{ value: 'US', label: '美国', currency: 'USD' }, { value: 'CA', label: '加拿大', currency: 'CAD' }], tiktok: [{ value: 'US', label: '美国', currency: 'USD' }, { value: 'CA', label: '加拿大', currency: 'CAD' }], amazon: [{ value: 'US', label: '美国', currency: 'USD' }, { value: 'CA', label: '加拿大', currency: 'CAD' }] })

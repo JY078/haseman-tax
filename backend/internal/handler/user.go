@@ -58,24 +58,29 @@ func GetUsers(c *gin.Context) {
 // CreateUser creates a new user
 func CreateUser(c *gin.Context) {
 	var input struct {
-		Username       string   `json:"username" binding:"required"`
-		Name           string   `json:"name"`
-		DepartmentID   uint     `json:"department_id"`
-		Platform       string   `json:"platform"`
-		Department     string   `json:"department"`
-		SubDepartment  string   `json:"sub_department"`
-		Email          string   `json:"email"`
-		Password       string   `json:"password" binding:"required"`
-		RoleIDs        []uint   `json:"role_ids"`
-		OrderPlatforms []string `json:"order_platforms"`
-		LongLogin      *bool    `json:"long_login"`
-		Enabled        *bool    `json:"enabled"`
+		Username           string              `json:"username" binding:"required"`
+		Name               string              `json:"name"`
+		DepartmentID       uint                `json:"department_id"`
+		Platform           string              `json:"platform"`
+		Department         string              `json:"department"`
+		SubDepartment      string              `json:"sub_department"`
+		Email              string              `json:"email"`
+		Password           string              `json:"password" binding:"required"`
+		RoleIDs            []uint              `json:"role_ids"`
+		OrderPlatforms     []string            `json:"order_platforms"`
+		FinancePermissions map[string][]string `json:"finance_permissions"`
+		LongLogin          *bool               `json:"long_login"`
+		Enabled            *bool               `json:"enabled"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	if err := validateUserOrderPlatforms(input.OrderPlatforms); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if err := validateFinancePermissions(input.FinancePermissions); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -89,13 +94,14 @@ func CreateUser(c *gin.Context) {
 	applyDepartmentSelection(&input.Platform, &input.Department, &input.SubDepartment, input.DepartmentID)
 
 	user := model.User{
-		Username:      input.Username,
-		Name:          input.Name,
-		Platform:      input.Platform,
-		Department:    input.Department,
-		SubDepartment: input.SubDepartment,
-		Email:         input.Email,
-		Password:      string(hashed),
+		Username:           input.Username,
+		Name:               input.Name,
+		Platform:           input.Platform,
+		Department:         input.Department,
+		SubDepartment:      input.SubDepartment,
+		Email:              input.Email,
+		Password:           string(hashed),
+		FinancePermissions: normalizeFinancePermissions(input.FinancePermissions),
 	}
 	if input.LongLogin != nil {
 		user.LongLogin = *input.LongLogin
@@ -138,22 +144,27 @@ func UpdateUser(c *gin.Context) {
 	}
 
 	var input struct {
-		Name           string   `json:"name"`
-		DepartmentID   uint     `json:"department_id"`
-		Platform       string   `json:"platform"`
-		Department     string   `json:"department"`
-		SubDepartment  string   `json:"sub_department"`
-		Password       string   `json:"password"`
-		RoleIDs        []uint   `json:"role_ids"`
-		OrderPlatforms []string `json:"order_platforms"`
-		LongLogin      *bool    `json:"long_login"`
-		Enabled        *bool    `json:"enabled"`
+		Name               string              `json:"name"`
+		DepartmentID       uint                `json:"department_id"`
+		Platform           string              `json:"platform"`
+		Department         string              `json:"department"`
+		SubDepartment      string              `json:"sub_department"`
+		Password           string              `json:"password"`
+		RoleIDs            []uint              `json:"role_ids"`
+		OrderPlatforms     []string            `json:"order_platforms"`
+		FinancePermissions map[string][]string `json:"finance_permissions"`
+		LongLogin          *bool               `json:"long_login"`
+		Enabled            *bool               `json:"enabled"`
 	}
 	if err := c.ShouldBindJSON(&input); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
 	if err := validateUserOrderPlatforms(input.OrderPlatforms); err != nil {
+		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
+		return
+	}
+	if err := validateFinancePermissions(input.FinancePermissions); err != nil {
 		c.JSON(http.StatusBadRequest, gin.H{"error": err.Error()})
 		return
 	}
@@ -166,6 +177,7 @@ func UpdateUser(c *gin.Context) {
 	user.Platform = input.Platform
 	user.Department = input.Department
 	user.SubDepartment = input.SubDepartment
+	user.FinancePermissions = normalizeFinancePermissions(input.FinancePermissions)
 	if input.Password != "" {
 		hashed, err := bcrypt.GenerateFromPassword([]byte(input.Password), bcrypt.DefaultCost)
 		if err != nil {
@@ -211,6 +223,43 @@ func UpdateUser(c *gin.Context) {
 	database.DB.Preload("Roles").First(&user, user.ID)
 	loadUserOrderPlatforms(&user)
 	c.JSON(http.StatusOK, user)
+}
+
+var financePermissionPlatforms = map[string]struct{}{"amazon": {}, "tiktok": {}, "walmart": {}, "customs": {}, "exchange_rates": {}}
+var financePermissionActions = map[string]struct{}{"view": {}, "create": {}, "import": {}, "export": {}}
+
+func normalizeFinancePermissions(values map[string][]string) map[string][]string {
+	result := make(map[string][]string)
+	for platform, actions := range values {
+		platform = strings.ToLower(strings.TrimSpace(platform))
+		if _, ok := financePermissionPlatforms[platform]; !ok {
+			continue
+		}
+		seen := map[string]bool{}
+		for _, action := range actions {
+			action = strings.ToLower(strings.TrimSpace(action))
+			if _, ok := financePermissionActions[action]; ok && !seen[action] {
+				result[platform] = append(result[platform], action)
+				seen[action] = true
+			}
+		}
+		sort.Strings(result[platform])
+	}
+	return result
+}
+
+func validateFinancePermissions(values map[string][]string) error {
+	for platform, actions := range values {
+		if _, ok := financePermissionPlatforms[strings.ToLower(strings.TrimSpace(platform))]; !ok {
+			return fmt.Errorf("包含不支持的财务平台权限")
+		}
+		for _, action := range actions {
+			if _, ok := financePermissionActions[strings.ToLower(strings.TrimSpace(action))]; !ok {
+				return fmt.Errorf("包含不支持的财务操作权限")
+			}
+		}
+	}
+	return nil
 }
 
 // DeleteUser deletes a user (cannot delete self or the last admin)
