@@ -1,0 +1,12 @@
+# STP Renderer - 统一依赖
+# 需要 pythonocc-core (OCC) 和 open3d 在同一 Python 环境
+pythonocc-core>=0.18.2
+open3d>=0.17.0
+numpy>=1.24.0
+Pillow>=10.0.0
+oss2>=2.18.0
+redis>=5.0.0
+requests>=2.31.0
+matplotlib>=3.7.0
+trimesh>=4.0.0
+pyassimp>=5.2.5

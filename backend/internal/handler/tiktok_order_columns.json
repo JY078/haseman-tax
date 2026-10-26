@@ -1,0 +1,254 @@
+[
+  {
+    "key": "Order ID",
+    "label": "订单ID"
+  },
+  {
+    "key": "Order Status",
+    "label": "订单状态"
+  },
+  {
+    "key": "Order Substatus",
+    "label": "订单子状态"
+  },
+  {
+    "key": "Cancelation/Return Type",
+    "label": "取消/退货类型"
+  },
+  {
+    "key": "Normal or Pre-order",
+    "label": "普通订单或预售订单"
+  },
+  {
+    "key": "SKU ID",
+    "label": "SKU ID"
+  },
+  {
+    "key": "Seller SKU",
+    "label": "卖家SKU"
+  },
+  {
+    "key": "Product ID",
+    "label": "产品ID"
+  },
+  {
+    "key": "Product Name",
+    "label": "产品名称"
+  },
+  {
+    "key": "Variation",
+    "label": "规格"
+  },
+  {
+    "key": "Virtual Bundle Seller SKU",
+    "label": "虚拟组合卖家SKU"
+  },
+  {
+    "key": "Quantity",
+    "label": "数量"
+  },
+  {
+    "key": "Sku Quantity of return",
+    "label": "SKU退货数量"
+  },
+  {
+    "key": "SKU Unit Original Price",
+    "label": "SKU原始单价"
+  },
+  {
+    "key": "SKU Subtotal Before Discount",
+    "label": "SKU折前小计"
+  },
+  {
+    "key": "SKU Platform Discount",
+    "label": "SKU平台折扣"
+  },
+  {
+    "key": "SKU Seller Discount",
+    "label": "SKU卖家折扣"
+  },
+  {
+    "key": "SKU Subtotal After Discount",
+    "label": "SKU折后小计"
+  },
+  {
+    "key": "Shipping Fee After Discount",
+    "label": "折后运费"
+  },
+  {
+    "key": "Original Shipping Fee",
+    "label": "原始运费"
+  },
+  {
+    "key": "Shipping Fee Seller Discount",
+    "label": "卖家运费折扣"
+  },
+  {
+    "key": "Co-Funded Shipping Fee Discount",
+    "label": "共同出资运费折扣"
+  },
+  {
+    "key": "Shipping Fee Platform Discount",
+    "label": "平台运费折扣"
+  },
+  {
+    "key": "Payment platform discount",
+    "label": "支付平台折扣"
+  },
+  {
+    "key": "Retail Delivery Fee",
+    "label": "零售配送费"
+  },
+  {
+    "key": "Taxes",
+    "label": "税费"
+  },
+  {
+    "key": "Order Amount",
+    "label": "订单金额"
+  },
+  {
+    "key": "Order Refund Amount",
+    "label": "订单退款金额"
+  },
+  {
+    "key": "Created Time",
+    "label": "创建时间"
+  },
+  {
+    "key": "Paid Time",
+    "label": "付款时间"
+  },
+  {
+    "key": "RTS Time",
+    "label": "待发货时间"
+  },
+  {
+    "key": "Shipped Time",
+    "label": "发货时间"
+  },
+  {
+    "key": "Delivered Time",
+    "label": "送达时间"
+  },
+  {
+    "key": "Cancelled Time",
+    "label": "取消时间"
+  },
+  {
+    "key": "Cancel By",
+    "label": "取消方"
+  },
+  {
+    "key": "Cancel Reason",
+    "label": "取消原因"
+  },
+  {
+    "key": "Fulfillment Type",
+    "label": "履约类型"
+  },
+  {
+    "key": "Warehouse Name",
+    "label": "仓库名称"
+  },
+  {
+    "key": "Tracking ID",
+    "label": "物流追踪号"
+  },
+  {
+    "key": "Delivery Option Type",
+    "label": "物流方式类型"
+  },
+  {
+    "key": "Delivery Option",
+    "label": "物流方式"
+  },
+  {
+    "key": "Shipping Provider Name",
+    "label": "物流服务商名称"
+  },
+  {
+    "key": "Buyer Message",
+    "label": "买家留言"
+  },
+  {
+    "key": "Buyer Nickname",
+    "label": "买家昵称"
+  },
+  {
+    "key": "Buyer Username",
+    "label": "买家用户名"
+  },
+  {
+    "key": "Recipient",
+    "label": "收件人"
+  },
+  {
+    "key": "Phone #",
+    "label": "电话"
+  },
+  {
+    "key": "Country",
+    "label": "国家"
+  },
+  {
+    "key": "State",
+    "label": "州/省"
+  },
+  {
+    "key": "City",
+    "label": "城市"
+  },
+  {
+    "key": "Zipcode",
+    "label": "邮编"
+  },
+  {
+    "key": "Address Line 1",
+    "label": "地址行1"
+  },
+  {
+    "key": "Address Line 2",
+    "label": "地址行2"
+  },
+  {
+    "key": "Delivery Instruction",
+    "label": "配送说明"
+  },
+  {
+    "key": "Payment Method",
+    "label": "支付方式"
+  },
+  {
+    "key": "Weight(kg)",
+    "label": "重量(千克)"
+  },
+  {
+    "key": "Product Category",
+    "label": "产品类别"
+  },
+  {
+    "key": "Package ID",
+    "label": "包裹ID"
+  },
+  {
+    "key": "Seller Note",
+    "label": "卖家备注"
+  },
+  {
+    "key": "Shipping Information",
+    "label": "物流信息"
+  },
+  {
+    "key": "Combined Listing",
+    "label": "组合刊登"
+  },
+  {
+    "key": "Order Channel",
+    "label": "订单渠道"
+  },
+  {
+    "key": "Creator Handle",
+    "label": "达人账号"
+  }
+]

@@ -1,0 +1,4 @@
+interface:
+  display_name: "ÕûÌ×·ç¸ñ Agent"
+  short_description: "Lock one premium visual system for the suite"
+  default_prompt: "Use $lock-suite-style to define one coherent suite visual system."

@@ -1,0 +1,1 @@
+ALTER TABLE ai_models ADD COLUMN is_default BOOLEAN DEFAULT FALSE;

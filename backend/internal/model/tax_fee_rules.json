@@ -1,0 +1,434 @@
+[
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Return Shipping fee",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": "WFS退货运费"
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Fulfillment fee",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "配送费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS LostInventory",
+    "amount_type": "WFS Inventory Fee/Reimbursement",
+    "custom_fee_type": "其他收入",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Refund",
+    "amount_type": "WFS Inventory Fee/Reimbursement",
+    "custom_fee_type": "其他收入",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Return Processing Fee",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Dispute Settlement",
+    "transaction_description": "Customer Return Reversal",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "其他收入",
+    "allocation": "分摊费用",
+    "note": "库存调整费"
+  },
+  {
+    "transaction_type": "PaymentSummary",
+    "transaction_description": "Deposited in PINGPONG account",
+    "amount_type": "",
+    "custom_fee_type": "汇总",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Commission on Product",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "ExcessRefundAdjustment",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Product Price",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Product tax",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Product tax withheld",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Total Walmart Funded Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Commission on Product",
+    "custom_fee_type": "佣金",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Other tax (Fees)",
+    "custom_fee_type": "税",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Product Price",
+    "custom_fee_type": "销售额",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Product tax",
+    "custom_fee_type": "税",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Product tax withheld",
+    "custom_fee_type": "税",
+    "allocation": "",
+    "note": "由卖家主动发起的退款"
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Promo Code",
+    "custom_fee_type": "折扣",
+    "allocation": "",
+    "note": "由卖家主动发起的退款"
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Total Walmart Funded Savings",
+    "custom_fee_type": "其他收入",
+    "allocation": "",
+    "note": "由卖家主动发起的退款"
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "Review Accelerator",
+    "amount_type": "Review Accelerator Fee",
+    "custom_fee_type": "广告费",
+    "allocation": "",
+    "note": "由卖家主动发起的退款"
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "Walmart Product Advertising",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "广告费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "Walmart Product Advertising Credits",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "广告费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "Walmart Return Shipping Charge",
+    "amount_type": "Item Fees",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "WFS InboundTransportationFee",
+    "amount_type": "WFS Inbound Fee",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "WFS StorageFee",
+    "amount_type": "WFS Inventory Fee/Reimbursement",
+    "custom_fee_type": "仓储费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "",
+    "transaction_description": "WFS RC_InventoryDisposalFee",
+    "amount_type": "",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "WFS PrepServiceFee",
+    "amount_type": "WFS Inbound Fee",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": "沃尔玛激励"
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS FoundInventory",
+    "amount_type": "WFS Inventory Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Sale",
+    "transaction_description": "Purchase",
+    "amount_type": "Extra Savings",
+    "custom_fee_type": "折扣",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Campaigns",
+    "transaction_description": "SEM Marketing",
+    "amount_type": "SEM Marketing Fee",
+    "custom_fee_type": "广告费",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Extra Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Return Refund",
+    "amount_type": "Other tax (Fees)",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Triggered Refund",
+    "amount_type": "Product Price",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": "非WFS退货运费"
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Triggered Refund",
+    "amount_type": "Product tax",
+    "custom_fee_type": "退款",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Triggered Refund",
+    "amount_type": "Product tax withheld",
+    "custom_fee_type": "退款",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Triggered Refund",
+    "amount_type": "Commission on Product",
+    "custom_fee_type": "退款",
+    "allocation": "分摊费用",
+    "note": "入库中的预处理费"
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Charge",
+    "amount_type": "WFS Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee",
+    "transaction_description": "Misc Invoices",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "分摊费用",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Product Price",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Product tax",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Product tax withheld",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Commission on Product",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Initiated Returns",
+    "amount_type": "Product Price",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Initiated Returns",
+    "amount_type": "Product tax",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Initiated Returns",
+    "amount_type": "Product tax withheld",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Initiated Returns",
+    "amount_type": "Commission on Product",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Initiated Returns",
+    "amount_type": "Total Walmart Funded Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Seller Triggered Refund",
+    "amount_type": "Total Walmart Funded Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Extra Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Refund",
+    "transaction_description": "Keep-it refund",
+    "amount_type": "Total Walmart Funded Savings",
+    "custom_fee_type": "退款",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS DamageInWarehouse",
+    "amount_type": "WFS Inventory Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Adjustment",
+    "transaction_description": "WFS Returned Item Disposal Fee",
+    "amount_type": "Fee/Reimbursement",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  },
+  {
+    "transaction_type": "Service Fee - for walmart creators",
+    "transaction_description": "Walmart Social Commerce - Creators",
+    "amount_type": "Debit Payable",
+    "custom_fee_type": "杂费",
+    "allocation": "",
+    "note": ""
+  }
+]

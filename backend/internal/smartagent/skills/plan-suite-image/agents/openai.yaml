@@ -1,0 +1,4 @@
+interface:
+  display_name: "µ¥Í¼¹æ»® Agent"
+  short_description: "Build structured product-safe image generation plans"
+  default_prompt: "Use $plan-suite-image to produce a complete structured image plan."

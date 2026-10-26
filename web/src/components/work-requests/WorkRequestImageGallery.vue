@@ -1,0 +1,8 @@
+<template><div class="image-gallery"><span>{{ title }}</span><div :class="['gallery-grid', { compact }]"><button v-for="(image, index) in images" :key="`${image.url}-${index}`" type="button" @click="$emit('preview', image.url)"><img :src="thumbnail(image.url)" :alt="image.note || title" /><small v-if="image.note">{{ image.note }}</small></button></div></div></template>
+<script setup>
+import { getDisplayThumbnailUrl } from '@/utils/request'
+defineProps({ title: { type: String, required: true }, images: { type: Array, default: () => [] }, compact: { type: Boolean, default: false } })
+defineEmits(['preview'])
+function thumbnail(url) { return getDisplayThumbnailUrl(url, { width: 300, height: 190, quality: 82, fit: 'lfit' }) }
+</script>
+<style scoped>.image-gallery { margin-bottom: 15px; }.image-gallery > span { display: block; margin-bottom: 7px; color: #96918a; font-size: 11px; font-weight: 600; }.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(125px, 1fr)); gap: 9px; }.gallery-grid.compact { grid-template-columns: repeat(auto-fill, minmax(100px, 135px)); }.gallery-grid button { overflow: hidden; border: 1px solid #dfdcd7; border-radius: 6px; background: #faf9f7; text-align: left; transition: border-color .16s ease; }.gallery-grid button:hover { border-color: #aaa59d; }.gallery-grid button:focus-visible { outline: 2px solid #736c63; outline-offset: 2px; }.gallery-grid img { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; transition: transform .25s ease; }.gallery-grid button:hover img { transform: scale(1.015); }.gallery-grid small { display: block; overflow: hidden; padding: 7px 8px; color: #5a5650; font-size: 10px; text-overflow: ellipsis; white-space: nowrap; }</style>

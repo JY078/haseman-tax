@@ -1,0 +1,33 @@
+<h2>3D 模型旋转方式</h2>
+<p class="subtitle">用户如何调整 3D 模型的角度？</p>
+
+<div class="options">
+  <div class="option" data-choice="A" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>预设角度</h3>
+      <p>提供固定角度按钮（如：正面/侧面/顶面/45°等），用户点击快速切换视角</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="B" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>自由旋转</h3>
+      <p>鼠标拖拽或滑块控制，可自由旋转到任意角度</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="C" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>预设 + 自由旋转</h3>
+      <p>既有点击预设角度，也有自由旋转功能，灵活切换</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 32px;">
+  <p class="label">当前选择</p>
+  <p id="selection-text" style="font-size: 18px; color: #111827; margin-top: 8px;">请在上方选择一个选项</p>
+</div>

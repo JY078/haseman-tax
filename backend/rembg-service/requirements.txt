@@ -1,0 +1,4 @@
+rembg[cpu]==2.0.84
+onnxruntime==1.30.0
+fastapi==0.128.0
+uvicorn==0.40.0

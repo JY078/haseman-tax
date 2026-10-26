@@ -1,0 +1,4 @@
+interface:
+  display_name: "套图需求理解 Agent"
+  short_description: "Understand and revise structured suite requirements"
+  default_prompt: "Use $understand-suite-requirements to apply the latest suite requirement."

@@ -1,0 +1,83 @@
+package main
+
+import (
+	"fmt"
+	"log"
+	"net/http"
+	"strings"
+
+	"advertising-image/backend/internal/config"
+	"advertising-image/backend/internal/database"
+	"advertising-image/backend/internal/model"
+)
+
+func probe(raw string) {
+	candidate := strings.TrimSpace(raw)
+	fmt.Printf("raw=%q\n", candidate)
+	if candidate == "" {
+		fmt.Println("  -> empty")
+		return
+	}
+	candidates := []string{candidate}
+	if strings.HasPrefix(candidate, "/") {
+		for _, base := range []string{"http://127.0.0.1:8080", "http://localhost:8080", strings.TrimRight(setting("access_url"), "/"), strings.TrimRight(setting("server_url"), "/")} {
+			if strings.TrimSpace(base) == "" {
+				continue
+			}
+			candidates = append(candidates, base+candidate)
+		}
+	}
+	seen := map[string]bool{}
+	for _, url := range candidates {
+		if seen[url] {
+			continue
+		}
+		seen[url] = true
+		resp, err := http.Get(url)
+		if err != nil {
+			fmt.Printf("  GET %s -> ERR %v\n", url, err)
+			continue
+		}
+		resp.Body.Close()
+		fmt.Printf("  GET %s -> %d content-type=%s\n", url, resp.StatusCode, resp.Header.Get("Content-Type"))
+	}
+}
+
+func setting(key string) string {
+	var s model.Setting
+	if err := database.DB.Where("key = ?", key).First(&s).Error; err != nil {
+		return ""
+	}
+	return s.Value
+}
+
+func main() {
+	config.LoadConfig()
+	database.Connect()
+
+	var product struct {
+		ID       uint64
+		Name     string
+		ImageURL string
+	}
+	if err := database.DB.Raw(`SELECT id, name, image_url FROM product_prompts ORDER BY id ASC LIMIT 1`).Scan(&product).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	var prompt struct {
+		ID     uint64
+		Title  string
+		Images string
+	}
+	if err := database.DB.Raw(`SELECT id, title, images FROM prompts WHERE status='approved' ORDER BY id ASC LIMIT 1`).Scan(&prompt).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("[product] id=%d name=%q\n", product.ID, product.Name)
+	probe(product.ImageURL)
+	fmt.Printf("\n[template] id=%d title=%q\n", prompt.ID, prompt.Title)
+	img := strings.TrimSpace(strings.Trim(prompt.Images, "[]\""))
+	probe(img)
+	fmt.Printf("\n[brand_logo]\n")
+	probe(setting("brand_logo_url"))
+}

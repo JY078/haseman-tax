@@ -1,0 +1,3 @@
+DROP INDEX IF EXISTS idx_prompts_status;
+ALTER TABLE prompts DROP COLUMN IF EXISTS source;
+ALTER TABLE prompts DROP COLUMN IF EXISTS status;

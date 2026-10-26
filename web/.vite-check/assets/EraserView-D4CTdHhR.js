@@ -1,0 +1,1 @@
+import{_ as r}from"./MainLayout-ChbZ4txK.js";import{E as a}from"./EraserTool-CVCznbT8.js";import{c as e,w as o,b as t,o as s}from"./index-8pebMtio.js";import"./WrenchScrewdriverIcon-iLjyrq-v.js";const l={__name:"EraserView",setup(_){return(c,m)=>(s(),e(r,null,{default:o(()=>[t(a)]),_:1}))}};export{l as default};

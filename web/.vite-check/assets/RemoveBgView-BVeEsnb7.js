@@ -1,0 +1,1 @@
+import{_ as e}from"./MainLayout-ChbZ4txK.js";import{R as o}from"./RemoveBgTool-Be8CI7H2.js";import{c as t,w as a,b as r,o as m}from"./index-8pebMtio.js";import"./WrenchScrewdriverIcon-iLjyrq-v.js";const l={__name:"RemoveBgView",setup(s){return(_,c)=>(m(),t(e,null,{default:a(()=>[r(o)]),_:1}))}};export{l as default};

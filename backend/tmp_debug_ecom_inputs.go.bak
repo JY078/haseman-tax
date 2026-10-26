@@ -1,0 +1,46 @@
+package main
+
+import (
+	"encoding/json"
+	"fmt"
+	"log"
+	"strings"
+
+	"advertising-image/backend/internal/config"
+	"advertising-image/backend/internal/database"
+	"advertising-image/backend/internal/model"
+)
+
+func main() {
+	config.LoadConfig()
+	database.Connect()
+
+	var settings []model.Setting
+	if err := database.DB.Where("key IN ?", []string{"access_url", "brand_logo_url", "chat_key", "draw_key"}).Find(&settings).Error; err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("[SETTINGS]")
+	for _, s := range settings {
+		v := s.Value
+		if strings.Contains(s.Key, "_key") && len(v) > 8 {
+			v = v[:4] + "..." + v[len(v)-4:]
+		}
+		fmt.Printf("%s = %q\n", s.Key, v)
+	}
+
+	var product model.ProductPrompt
+	if err := database.DB.Order("id asc").First(&product).Error; err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("\n[PRODUCT]")
+	b, _ := json.MarshalIndent(product, "", "  ")
+	fmt.Println(string(b))
+
+	var prompt model.Prompt
+	if err := database.DB.Where("status = ?", "approved").Order("id asc").First(&prompt).Error; err != nil {
+		log.Fatal(err)
+	}
+	fmt.Println("\n[TEMPLATE PROMPT]")
+	b, _ = json.MarshalIndent(prompt, "", "  ")
+	fmt.Println(string(b))
+}

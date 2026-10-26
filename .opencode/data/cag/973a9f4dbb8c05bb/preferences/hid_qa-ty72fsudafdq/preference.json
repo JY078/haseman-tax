@@ -1,0 +1,50 @@
+[
+  {
+    "id": "5267c495cbd1414897e545cb2e148ab5",
+    "userID": "hid_qa-ty72fsudafdq",
+    "domainID": "hid_qa-ty72fsudafdq",
+    "type": "Language preference",
+    "content": "Communicates in native Chinese while keeping exact English technical terms for Amazon domain terminology and report fields (e.g., FBA Transaction Fees, Inventory Storage Fee, Removal Order Disposal Fee, Fulfilment by Amazon transaction fees, description, fba fee), expecting these English terms to be preserved verbatim rather than translated",
+    "remark": "new",
+    "namespace": "DevMate",
+    "createTime": "2026-10-22T06:16:55.263Z",
+    "updateTime": "2026-10-22T10:41:30.749Z",
+    "isDeleted": false
+  },
+  {
+    "id": "56803028b98c4549bc42e273c4d84847",
+    "userID": "hid_qa-ty72fsudafdq",
+    "domainID": "hid_qa-ty72fsudafdq",
+    "type": "Styling scheme",
+    "content": "Prefers ERP-professional aesthetics for UI components (e.g., range filter select boxes should be polished and visually professional, matching the professional look and feel of ERP systems)",
+    "remark": "new",
+    "namespace": "DevMate",
+    "createTime": "2026-10-22T06:16:55.277Z",
+    "updateTime": "2026-10-22T08:31:05.289Z",
+    "isDeleted": false
+  },
+  {
+    "id": "cda28da25e5a4b738f6bb0b2fdae1513",
+    "userID": "hid_qa-ty72fsudafdq",
+    "domainID": "hid_qa-ty72fsudafdq",
+    "type": "Explanation preference",
+    "content": "Prefers AI to explain the current calculation logic/rules; repeatedly asks how fees (delivery fee / storage fee) are currently calculated, especially after rules are modified",
+    "remark": "new",
+    "namespace": "DevMate",
+    "createTime": "2026-10-22T08:31:05.309Z",
+    "updateTime": "2026-10-22T09:09:17.892Z",
+    "isDeleted": false
+  },
+  {
+    "id": "f754d6e39784448cbcff03b2fa5b45e4",
+    "userID": "hid_qa-ty72fsudafdq",
+    "domainID": "hid_qa-ty72fsudafdq",
+    "type": "Naming convention",
+    "content": "References data fields and fee categories by their exact English identifiers from the Amazon report schema (description, fba fee, FBA Transaction Fees); code/variable naming should use English semantic names that match the source data schema exactly",
+    "remark": "new",
+    "namespace": "DevMate",
+    "createTime": "2026-10-22T10:41:30.757Z",
+    "updateTime": "2026-10-22T10:41:30.757Z",
+    "isDeleted": false
+  }
+]

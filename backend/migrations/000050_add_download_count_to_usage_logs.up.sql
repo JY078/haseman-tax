@@ -1,0 +1,1 @@
+ALTER TABLE usage_logs ADD COLUMN IF NOT EXISTS download_count INT NOT NULL DEFAULT 0;

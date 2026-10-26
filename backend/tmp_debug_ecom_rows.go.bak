@@ -1,0 +1,43 @@
+package main
+
+import (
+	"fmt"
+	"log"
+
+	"advertising-image/backend/internal/config"
+	"advertising-image/backend/internal/database"
+)
+
+type countRow struct {
+	Count int64
+}
+
+func main() {
+	config.LoadConfig()
+	database.Connect()
+
+	var beforeTasks countRow
+	var beforeImages countRow
+	if err := database.DB.Raw(`SELECT COUNT(*) AS count FROM ecom_suite_tasks`).Scan(&beforeTasks).Error; err != nil {
+		log.Fatal(err)
+	}
+	if err := database.DB.Raw(`SELECT COUNT(*) AS count FROM ecom_suite_images`).Scan(&beforeImages).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	if err := database.DB.Exec(`BEGIN; DELETE FROM ecom_suite_images; DELETE FROM ecom_suite_tasks; COMMIT;`).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	var afterTasks countRow
+	var afterImages countRow
+	if err := database.DB.Raw(`SELECT COUNT(*) AS count FROM ecom_suite_tasks`).Scan(&afterTasks).Error; err != nil {
+		log.Fatal(err)
+	}
+	if err := database.DB.Raw(`SELECT COUNT(*) AS count FROM ecom_suite_images`).Scan(&afterImages).Error; err != nil {
+		log.Fatal(err)
+	}
+
+	fmt.Printf("ecom_suite_tasks: %d -> %d\n", beforeTasks.Count, afterTasks.Count)
+	fmt.Printf("ecom_suite_images: %d -> %d\n", beforeImages.Count, afterImages.Count)
+}

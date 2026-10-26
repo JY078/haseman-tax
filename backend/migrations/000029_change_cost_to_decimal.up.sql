@@ -1,0 +1,1 @@
+ALTER TABLE usage_logs ALTER COLUMN cost TYPE NUMERIC(15, 6);

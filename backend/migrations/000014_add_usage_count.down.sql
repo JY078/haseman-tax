@@ -1,0 +1,2 @@
+ALTER TABLE users DROP COLUMN IF EXISTS usage_count;
+ALTER TABLE ai_models DROP COLUMN IF EXISTS usage_count;

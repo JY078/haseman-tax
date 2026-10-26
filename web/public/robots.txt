@@ -1,0 +1,48 @@
+# ========================================
+# robots.txt - DH (home.radium.net.cn)
+# ========================================
+
+# 通用规则：允许所有主流搜索引擎爬取
+User-agent: *
+Allow: /
+Allow: /features
+Allow: /templates
+Disallow: /api/
+Disallow: /uploads/
+Disallow: /multi-angle
+Disallow: /image-to-prompt
+Disallow: /tools
+Disallow: /eraser
+Disallow: /remove-bg
+Disallow: /generate
+Disallow: /product-image
+Disallow: /my-designs
+Disallow: /profile
+Disallow: /maintenance
+
+# Google 爬虫
+User-agent: Googlebot
+Allow: /
+Allow: /features
+Allow: /templates
+Disallow: /api/
+Crawl-delay: 1
+
+# 百度爬虫
+User-agent: Baiduspider
+Allow: /
+Allow: /features
+Allow: /templates
+Disallow: /api/
+Crawl-delay: 2
+
+# 必应爬虫
+User-agent: bingbot
+Allow: /
+Allow: /features
+Allow: /templates
+Disallow: /api/
+Crawl-delay: 1
+
+# Sitemap 地址
+Sitemap: https://home.radium.net.cn/sitemap.xml

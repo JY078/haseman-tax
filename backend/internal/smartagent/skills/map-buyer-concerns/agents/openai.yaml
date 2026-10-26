@@ -1,0 +1,4 @@
+interface:
+  display_name: "Âò¼Ò¹ËÂÇ Agent"
+  short_description: "Map confirmed facts to visual buyer concerns"
+  default_prompt: "Use $map-buyer-concerns to prioritize product-specific buyer doubts."

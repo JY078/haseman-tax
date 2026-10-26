@@ -1,0 +1,4 @@
+interface:
+  display_name: "Listing 文案 Agent"
+  short_description: "Write marketplace-ready listings from confirmed facts"
+  default_prompt: "Use $write-product-listing to write the product listing from confirmed facts."

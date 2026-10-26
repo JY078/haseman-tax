@@ -1,0 +1,1 @@
+# Renderer module for STP to six-view images

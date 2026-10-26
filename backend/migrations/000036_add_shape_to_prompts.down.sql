@@ -1,0 +1,2 @@
+DROP INDEX IF EXISTS idx_prompts_shape;
+ALTER TABLE prompts DROP COLUMN IF EXISTS shape;

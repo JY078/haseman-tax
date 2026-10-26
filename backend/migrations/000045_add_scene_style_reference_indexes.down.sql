@@ -1,0 +1,2 @@
+DROP INDEX IF EXISTS idx_scene_style_references_tag_scene_id;
+DROP INDEX IF EXISTS idx_scene_style_references_scene_tag_id;

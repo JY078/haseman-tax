@@ -1,0 +1,11 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(go build *)",
+      "Bash(sed -i '515s/.*/\t\t\"detail\": `### detail 细节特写图/' ecom_suite.go)",
+      "Bash(sed -i '520s/.*/\t\t\"scene\": `### scene 场景图/' ecom_suite.go)",
+      "Bash(xxd)",
+      "Bash(dir \"d:\\\\workplace\\\\HaiErMan\\\\docs\\\\superpowers\" /b)"
+    ]
+  }
+}

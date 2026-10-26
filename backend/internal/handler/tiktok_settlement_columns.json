@@ -1,0 +1,326 @@
+[
+  {
+    "key": "Statement Date",
+    "label": "声明日期"
+  },
+  {
+    "key": "Statement ID",
+    "label": "陈述ID"
+  },
+  {
+    "key": "Currency",
+    "label": "货币"
+  },
+  {
+    "key": "Type",
+    "label": "类型"
+  },
+  {
+    "key": "Order/adjustment ID",
+    "label": "订单/调整ID"
+  },
+  {
+    "key": "SKU ID",
+    "label": "SKU ID"
+  },
+  {
+    "key": "Quantity",
+    "label": "数量"
+  },
+  {
+    "key": "Product name",
+    "label": "产品名称"
+  },
+  {
+    "key": "SKU name",
+    "label": "SKU"
+  },
+  {
+    "key": "Total settlement amount",
+    "label": "总结算金额"
+  },
+  {
+    "key": "Total Revenue",
+    "label": "总收入"
+  },
+  {
+    "key": "Subtotal after seller discounts",
+    "label": "折后价"
+  },
+  {
+    "key": "Subtotal before discounts",
+    "label": "折前价"
+  },
+  {
+    "key": "Seller discounts",
+    "label": "折扣"
+  },
+  {
+    "key": "Refund subtotal after seller discounts",
+    "label": "折扣后退款小计"
+  },
+  {
+    "key": "Refund subtotal before discounts",
+    "label": "折扣前退款小计"
+  },
+  {
+    "key": "Refund of seller discounts",
+    "label": "折扣退款"
+  },
+  {
+    "key": "Total Fees",
+    "label": "总费用"
+  },
+  {
+    "key": "Transaction fee",
+    "label": "交易服务费"
+  },
+  {
+    "key": "Referral fee",
+    "label": "平台佣金"
+  },
+  {
+    "key": "Refund administration fee",
+    "label": "平台佣金退款"
+  },
+  {
+    "key": "Seller shipping fee",
+    "label": "卖家运费"
+  },
+  {
+    "key": "FBT fulfillment fee",
+    "label": "FBT运费"
+  },
+  {
+    "key": "TikTok Shop shipping fee",
+    "label": "TTS运费"
+  },
+  {
+    "key": "Customer shipping fee offset",
+    "label": "客户运费抵扣"
+  },
+  {
+    "key": "Platform shipping fee discount",
+    "label": "平台运费折扣"
+  },
+  {
+    "key": "Customer shipping fee",
+    "label": "运费收入"
+  },
+  {
+    "key": "Refunded customer shipping fee",
+    "label": "已退还客户运费"
+  },
+  {
+    "key": "Actual return shipping fee",
+    "label": "实际退货运费"
+  },
+  {
+    "key": "Shipping subsidy",
+    "label": "运费补贴"
+  },
+  {
+    "key": "Shipping fee discount",
+    "label": "运费折扣"
+  },
+  {
+    "key": "FBT fulfillment fee reimbursement",
+    "label": "FBT配送费赔偿"
+  },
+  {
+    "key": "Return shipping fee (paid by customers)",
+    "label": "退货运费（由客户支付）"
+  },
+  {
+    "key": "Return shipping fee reimbursement",
+    "label": "退货运费赔偿"
+  },
+  {
+    "key": "Shipping app service fee",
+    "label": "配送应用服务费"
+  },
+  {
+    "key": "Protection service reimbursement",
+    "label": "配送保障赔付"
+  },
+  {
+    "key": "FBT overall merchant subsidy",
+    "label": "FBT 全体商家补贴"
+  },
+  {
+    "key": "FBT key merchant subsidy",
+    "label": "FBT 重点商家补贴"
+  },
+  {
+    "key": "Signature confirmation service fee",
+    "label": "签收确认费"
+  },
+  {
+    "key": "Affiliate Commission",
+    "label": "联盟佣金"
+  },
+  {
+    "key": "Affiliate partner commission",
+    "label": "联盟伙伴佣金"
+  },
+  {
+    "key": "Affiliate Shop Ads commission",
+    "label": "联盟店广告佣金"
+  },
+  {
+    "key": "Affiliate commission deposit",
+    "label": "联盟佣金预留金额"
+  },
+  {
+    "key": "Affiliate commission refund",
+    "label": "联盟佣金退款"
+  },
+  {
+    "key": "TikTok Shop Partner commission",
+    "label": "TikTok Shop合作伙伴佣金"
+  },
+  {
+    "key": "Customs duty",
+    "label": "关税"
+  },
+  {
+    "key": "Co-funded promotion (seller-funded)",
+    "label": "共同资助的推广（卖家资助）"
+  },
+  {
+    "key": "Co-funded creator bonus",
+    "label": "共同资助创作者奖金"
+  },
+  {
+    "key": "Affiliate Partner shop ads commission",
+    "label": "联盟伙伴广告佣金"
+  },
+  {
+    "key": "Campaign service fee",
+    "label": "活动服务费"
+  },
+  {
+    "key": "Campaign resource fee",
+    "label": "活动资源费用"
+  },
+  {
+    "key": "Sales tax on referral fees",
+    "label": "平台佣金税"
+  },
+  {
+    "key": "Protection service fee",
+    "label": "配送保障服务费"
+  },
+  {
+    "key": "Managed service plan (Sales tax)",
+    "label": "托管服务计划（销售税）"
+  },
+  {
+    "key": "Managed service plan (Per order fee)",
+    "label": "托管服务计划（按单收费）"
+  },
+  {
+    "key": "Co-funded Promotion campaign period fee",
+    "label": "联合出资推广活动期费用"
+  },
+  {
+    "key": "Co-funded Promotion campaign period fee sales tax",
+    "label": "联合出资推广活动期费用销售税"
+  },
+  {
+    "key": "GMV Max coupon",
+    "label": "GMV Max 优惠券"
+  },
+  {
+    "key": "GMV Max coupon sales tax",
+    "label": "GMV Max 优惠券销售税"
+  },
+  {
+    "key": "GMV Max ad fee",
+    "label": "GMV Max 广告费"
+  },
+  {
+    "key": "Category-led campaign fee",
+    "label": "品类主导活动费"
+  },
+  {
+    "key": "Category-led campaign fee tax",
+    "label": "品类主导活动费税费"
+  },
+  {
+    "key": "Brand Amplification Program commission fee",
+    "label": "品牌推广计划佣金"
+  },
+  {
+    "key": "Brand Amplification Program fee tax",
+    "label": "品牌推广计划费用税费"
+  },
+  {
+    "key": "Brand campaign fee",
+    "label": "品牌活动费"
+  },
+  {
+    "key": "Brand campaign fee tax",
+    "label": "品牌活动费税费"
+  },
+  {
+    "key": "GMV Max ad fee sales tax",
+    "label": "GMV Max销售税"
+  },
+  {
+    "key": "Protection service fee tax",
+    "label": "保护服务费税"
+  },
+  {
+    "key": "Auto-post shoppable video commission fee",
+    "label": "自动发布购物视频佣金"
+  },
+  {
+    "key": "Auto-post shoppable video sales tax",
+    "label": "自动发布购物视频销售税"
+  },
+  {
+    "key": "Smart Promotion Program",
+    "label": "智能推广计划"
+  },
+  {
+    "key": "New Customer Growth Package fee",
+    "label": "新客增长套餐费"
+  },
+  {
+    "key": "Shop GMV Growth Package fee",
+    "label": "店铺GMV增长套餐费"
+  },
+  {
+    "key": "Product GMV Growth Package fee",
+    "label": "商品GMV增长套餐费"
+  },
+  {
+    "key": "New Customer Growth Package fee sales tax",
+    "label": "新客增长套餐销售税"
+  },
+  {
+    "key": "Shop GMV Growth Package fee sales tax",
+    "label": "店铺GMV增长套餐销售税"
+  },
+  {
+    "key": "Product GMV Growth Package fee sales tax",
+    "label": "商品GMV增长套餐销售税"
+  },
+  {
+    "key": "Smart Promotion fee",
+    "label": "智能营销费"
+  },
+  {
+    "key": "Smart Promotion fee tax",
+    "label": "智能营销税"
+  },
+  {
+    "key": "Smart Promotion campaign period fee",
+    "label": "智能推广活动期费用"
+  },
+  {
+    "key": "Smart Promotion campaign period fee sales tax",
+    "label": "智能推广活动期费用销售税"
+  }
+]

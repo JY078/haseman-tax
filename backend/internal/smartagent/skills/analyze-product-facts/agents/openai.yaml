@@ -1,0 +1,4 @@
+interface:
+  display_name: "产品事实 Agent"
+  short_description: "Separate confirmed product facts from hypotheses"
+  default_prompt: "Use $analyze-product-facts to build an evidence-grounded fact map."

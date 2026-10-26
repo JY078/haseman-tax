@@ -1,0 +1,2 @@
+ALTER TABLE ai_models RENAME COLUMN types TO type;
+ALTER TABLE ai_models ALTER COLUMN type TYPE VARCHAR(50);

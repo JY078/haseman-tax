@@ -1,0 +1,2 @@
+DROP TABLE IF EXISTS asset_favorites;
+DROP TABLE IF EXISTS assets;

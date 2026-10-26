@@ -1,0 +1,17 @@
+.git
+.gitignore
+.env
+.env.*
+backend.log
+*.md
+LICENSE
+*.bak
+*.tmp
+*.db
+logs/
+uploads/
+node_modules/
+dist/
+.vscode/
+.idea/
+*.sum

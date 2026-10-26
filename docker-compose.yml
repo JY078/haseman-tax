@@ -1,0 +1,82 @@
+# Docker Compose for Haseman Backend
+
+services:
+  rembg-service:
+    build: ./backend/rembg-service
+    restart: unless-stopped
+    cpus: 3.0
+    mem_limit: 5637144576
+    memswap_limit: 5637144576
+    pids_limit: 128
+    ports:
+      - "127.0.0.1:8011:8001"
+    environment:
+      - OMP_NUM_THREADS=3
+      - NUMBA_NUM_THREADS=3
+      - OPENBLAS_NUM_THREADS=3
+      - MKL_NUM_THREADS=3
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8001/health')"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 120s
+
+  ocr-service:
+    build: ./backend/ocr
+    container_name: paddleocr-service
+    ports:
+      - "8000:8000"
+    environment:
+      - TZ=Asia/Shanghai
+    restart: unless-stopped
+    deploy:
+      resources:
+        limits:
+          memory: 4G
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8000/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  backend:
+    image: registry.cn-hangzhou.aliyuncs.com/haseman/backend:${VERSION:-latest}
+    container_name: haseman-api
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:8080:8080"
+    environment:
+      - SERVER_PORT=:8080
+      - SERVER_MODE=release
+      - JWT_SECRET=${JWT_SECRET}
+      - DB_HOST=${DB_HOST}
+      - DB_PORT=${DB_PORT}
+      - DB_USER=${DB_USER}
+      - DB_PASSWORD=${DB_PASSWORD}
+      - DB_NAME=${DB_NAME}
+      - DB_SSLMODE=disable
+      - REDIS_ADDR=${REDIS_ADDR}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}
+      - REDIS_DB=${REDIS_DB}
+      - ALIBABA_CLOUD_ACCESS_KEY_ID=${ALIBABA_CLOUD_ACCESS_KEY_ID}
+      - ALIBABA_CLOUD_ACCESS_KEY_SECRET=${ALIBABA_CLOUD_ACCESS_KEY_SECRET}
+      - OCR_SERVICE_URL=http://ocr-service:8000
+      - REMBG_SERVICE_URL=http://rembg-service:8001
+      - DOWNLOAD_NAS_DIR=${DOWNLOAD_NAS_DIR}
+      - ARK_BASE_URL=${ARK_BASE_URL}
+    volumes:
+      - ./logs:/app/logs
+      - ./data:/app/data
+    depends_on:
+      rembg-service:
+        condition: service_healthy
+      ocr-service:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "wget", "-q", "--spider", "http://localhost:8080/api/health"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 10s

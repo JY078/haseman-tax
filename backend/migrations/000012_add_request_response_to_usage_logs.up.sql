@@ -1,0 +1,2 @@
+ALTER TABLE usage_logs ADD COLUMN IF NOT EXISTS request_body TEXT DEFAULT '';
+ALTER TABLE usage_logs ADD COLUMN IF NOT EXISTS response_body TEXT DEFAULT '';

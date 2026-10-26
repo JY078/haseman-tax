@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ì×Í¼ÎÄ°¸ Agent"
+  short_description: "Write grounded native-market on-image copy"
+  default_prompt: "Use $write-suite-copy to write localized copy for planned suite images."

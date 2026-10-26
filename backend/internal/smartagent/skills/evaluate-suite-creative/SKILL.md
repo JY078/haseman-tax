@@ -1,0 +1,24 @@
+---
+name: evaluate-suite-creative
+description: Independently evaluate the complete ecommerce suite plan before rendering; identify actionable narrative, copy and photographic execution defects.
+---
+
+# Evaluate Suite Creative
+
+Read the complete suite, confirmed facts, buyer concerns, actual product references and target language. Judge the content, not whether fields exist. This is a pre-generation editorial gate, not an image re-review.
+
+- Judge each output stage as a whole. Prioritize purchase value before secondary fit or installation details when the facts support it. Do not force a preset order for every product.
+- Check redundant goals, repeated backgrounds/camera/action, unnecessary panels, inconsistent desktop/mobile messages and missing visual proof. A coherent palette does not require the same room or camera in every module.
+- Require natural native-market copy: a specific supported value or useful purchasing answer, followed by different concrete evidence. Reject awkward instructions, empty slogans, source notes, omitted measurement units and misleading claims. Never guess missing units or invent benefits.
+- Short meaningful titles are valid. Do not fail or demand extra words solely because a title has fewer than three words (or fewer than four Chinese characters); judge its meaning and supporting copy. Title limits are maxima of seven words (mobile five), or twelve Chinese letters/digits (mobile ten).
+- Check physical execution against product references: one real product, plausible moving parts, mounting and hand contact. Prefer a simple believable action over cloned products or impossible cutaways.
+- Do not fail for your personal stylistic preference, nor audit canvas dimensions or aspect ratio. Do not request a main image or a post-regeneration review.
+- Return only actionable defects tied to exact image identities. For a suite-level problem name the images that actually need changing; preserve valid images. Categories: narrative, copy, visual, facts. Include the visible consequence and a concrete correction.
+- A pass must include findings for narrative, copy, visual and facts, explicitly assessing the supplied plans. Classify issues with severity=blocker or suggestion. Passing requires zero blockers; suggestions may remain and must not trigger repair. Do not pass solely because the JSON is well formed.
+- Block concrete unsupported claims, invented numbers/units, explicit unsupported clearance demonstrations, impossible actions and materially unusable copy. Ordinary cabinetry, installation beneath a cabinet, a cabinet edge used for text alignment or a background boundary is context, not a compatibility promise. Speculative risks inferred only from such context and optional composition/narrative improvements are suggestions. Do not demand a placement change to eliminate a hypothetical implication.
+- During repair, edit only requested images and only the fields needed to resolve the defects. Keep image identities, product facts, placement and product identity. Never use inferences as claims or manufacture missing facts.
+- Each image has exactly one immutable assigned fact. The complete fact map is context, not an expanded claim allowance. Never prescribe adding or replacing assigned_fact_ids or assigned_product_facts. If wording combines an assigned fact with another fact, narrow the wording and related visual claims to the assigned fact. For a one-hole fact, remove a separate unsupported deck-mount claim rather than add its fact ID. Do not demand the removed claim again on the next review. Physical placement can remain unchanged without advertising an additional installation claim.
+- Respect the renderer's two-copy-item contract: title and subtitle only. Never demand extra panel labels or badges. Resolve ambiguous modes using a clear visual sequence with confirmed names in the approved subtitle, or a simpler truthful control/detail composition. Multiple modes do not require split panels.
+- Documented operating capabilities may support copy even without an operating reference photograph; judge the planned action for physical plausibility. Product height alone does not prove clearance for an unspecified sink, pot or cabinet. Remove unsupported implications rather than demand invented evidence or a new assigned fact.
+- On subsequent evaluations, inspect the current plans against previous findings; do not carry a resolved defect forward or introduce an incompatible stylistic demand.
+- Buyer concerns are suite-level questions. A height/width/depth concern may be covered by several modules with different assigned facts. Do not fail a height module because it does not claim width or depth, and never ask a repair to add another image's fact ID. If a supported dimension is absent from the whole suite, report it as a planning coverage gap; creative repair cannot manufacture or borrow that fact.

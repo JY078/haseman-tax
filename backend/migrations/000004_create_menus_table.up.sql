@@ -1,0 +1,12 @@
+CREATE TABLE IF NOT EXISTS menus (
+    id SERIAL PRIMARY KEY,
+    parent_id INT DEFAULT 0,
+    title VARCHAR(50) NOT NULL,
+    path VARCHAR(100) NOT NULL,
+    icon VARCHAR(50),
+    sort INT DEFAULT 0,
+    created_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP WITH TIME ZONE DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE INDEX idx_menus_parent_id ON menus(parent_id);

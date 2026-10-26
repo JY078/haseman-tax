@@ -1,0 +1,33 @@
+<h2>白底图生成方式</h2>
+<p class="subtitle">从 3D 查看器生成白底图时，图片来源是什么？</p>
+
+<div class="options">
+  <div class="option" data-choice="render" onclick="toggleSelect(this)">
+    <div class="letter">A</div>
+    <div class="content">
+      <h3>渲染新图</h3>
+      <p>从 STP 文件实时渲染一张白底图，用户旋转到满意角度后，点击生成该角度的渲染结果</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="existing" onclick="toggleSelect(this)">
+    <div class="letter">B</div>
+    <div class="content">
+      <h3>复用已有图</h3>
+      <p>从产品库中已渲染的图中选择一张作为白底图，3D 查看器只是用来预览和选择角度</p>
+    </div>
+  </div>
+
+  <div class="option" data-choice="both" onclick="toggleSelect(this)">
+    <div class="letter">C</div>
+    <div class="content">
+      <h3>两者都要</h3>
+      <p>既可以从 STP 渲染新图，也可以在已有图中选择</p>
+    </div>
+  </div>
+</div>
+
+<div class="section" style="margin-top: 32px;">
+  <p class="label">当前选择</p>
+  <p id="selection-text" style="font-size: 18px; color: #111827; margin-top: 8px;">请在上方选择一个选项</p>
+</div>
