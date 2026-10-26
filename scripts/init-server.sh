@@ -55,7 +55,12 @@ fi
 echo -e "${YELLOW}[6/7] 首次编译...${NC}"
 cd backend
 go mod tidy
-go build -o $SERVICE_NAME main.go
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags='-s -w' -o $SERVICE_NAME main.go
+chmod +x $SERVICE_NAME
+if file "$SERVICE_NAME" | grep -qE 'PE32|MS-DOS'; then
+    echo "编译结果仍是 Windows 二进制，停止启动"
+    exit 1
+fi
 
 # 6. 启动服务
 echo -e "${YELLOW}[7/7] 启动服务...${NC}"

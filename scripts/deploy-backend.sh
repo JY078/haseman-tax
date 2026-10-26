@@ -34,7 +34,12 @@ go mod tidy
 
 # 3. 编译
 echo -e "${YELLOW}[3/5] 编译项目...${NC}"
-go build -o $SERVICE_NAME main.go
+CGO_ENABLED=0 GOOS=linux GOARCH=amd64 go build -trimpath -ldflags='-s -w' -o $SERVICE_NAME main.go
+chmod +x $SERVICE_NAME
+if file "$SERVICE_NAME" | grep -qE 'PE32|MS-DOS'; then
+    echo "编译结果仍是 Windows 二进制，停止部署"
+    exit 1
+fi
 
 # Start the CPU cutout service before switching the backend to the new version.
 bash "$APP_DIR/scripts/start-rembg.sh"
